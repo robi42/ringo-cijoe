@@ -1,0 +1,7 @@
+{
+    "name": "ringo-cijoe",
+    "version": "0.1.0",
+    "description": "A shameless Ringo copycat of @defunkt's CIJoe.",
+    "keywords": ["build", "ci", "cijoe"],
+    "author": "Robert Thurnher (http://robert42.com/) <r.thurnher@gmail.com>"
+}
