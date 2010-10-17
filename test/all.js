@@ -21,6 +21,7 @@ exports['test `build` and corresponding `commit` objects'] = function () {
         'http://github.com/' + USER + '/' + PROJECT + '/commit/' + SHA,
         commit.url()
     );
+    assert.matches(commit.author(), /Hannes/);
     assert.strictEqual(SHA.substring(0, 7), build.shortSha());
     assert.isTrue(build.startedAt instanceof Date);
     assert.isUndefined(build.finishedAt);
