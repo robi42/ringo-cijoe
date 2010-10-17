@@ -22,6 +22,8 @@ exports['test `build` and corresponding `commit` objects'] = function () {
         commit.url()
     );
     assert.matches(commit.author(), /Hannes/);
+    assert.matches(commit.message(), /Rhino/);
+    assert.matches(commit.committedAt(), /2010/);
     assert.strictEqual(SHA.substring(0, 7), build.shortSha());
     assert.isTrue(build.startedAt instanceof Date);
     assert.isUndefined(build.finishedAt);
