@@ -22,6 +22,10 @@ exports['test `build` and corresponding `commit` objects'] = function () {
         commit.url()
     );
     assert.strictEqual(SHA.substring(0, 7), build.shortSha());
+    assert.isTrue(build.startedAt instanceof Date);
+    assert.isUndefined(build.finishedAt);
+    assert.isTrue(build.building());
+    assert.strictEqual('building', build.getStatus());
 };
 
 if (require.main == module.id) {
