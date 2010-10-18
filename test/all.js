@@ -1,6 +1,7 @@
 var assert = require('assert'),
     fs = require('fs');
 var {Build} = require('ringo/cijoe/build');
+var {Config} = require('ringo/cijoe/config');
 
 const SHA = 'a1a1420ad0a42f2a348c',
       USER = 'ringo',
@@ -49,6 +50,13 @@ exports['test serializing `build/commit` objects'] = function () {
     build = Build.load(DUMP_PATH, PROJECT_PATH);
     commit = build.commit();
     doAssert();
+};
+
+exports['test `config` objects'] = function () {
+    assert.isNotNull(new Config('user.name').toString());
+    assert.isNotNull(new Config('name', PROJECT_PATH, new Config('user'))
+            .toString());
+    assert['throws'](function () new Config('--invalid').toString());
 };
 
 if (require.main == module.id) {
