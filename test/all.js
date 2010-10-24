@@ -66,6 +66,7 @@ exports['test actual building'] = function () {
     joe.build();
     assert.isTrue(fs.exists(lastBuildDumpPath));
     assert.strictEqual('worked', lastBuildDumpLoad.status);
+    assert.strictEqual('worked', joe.lastBuild.status);
 };
 
 if (require.main == module.id) {
