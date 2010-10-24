@@ -15,7 +15,6 @@ var build = new Build({
     user: USER,
     project: PROJECT,
     projectPath: PROJECT_PATH,
-    pid: parseInt(Math.random() * 1000)
 });
 var commit = build.commit();
 
