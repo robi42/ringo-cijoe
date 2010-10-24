@@ -2,6 +2,7 @@ var assert = require('assert'),
     fs = require('fs');
 var {Build} = require('ringo/cijoe/build');
 var {Config} = require('ringo/cijoe/config');
+var {CiJoe} = require('ringo/cijoe');
 
 const SHA = 'a1a1420ad0a42f2a348c',
       USER = 'ringo',
@@ -57,6 +58,13 @@ exports['test `config` objects'] = function () {
     assert.isNotNull(new Config('name', PROJECT_PATH, new Config('user'))
             .toString());
     assert['throws'](function () new Config('--invalid').toString());
+};
+
+exports['test actual building'] = function () {
+    var joe = new CiJoe(PROJECT_PATH);
+    joe.build();
+    assert.isTrue(fs.exists(
+            fs.join(PROJECT_PATH, '.git', 'builds', 'current')));
 };
 
 if (require.main == module.id) {
