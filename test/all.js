@@ -63,7 +63,7 @@ exports['test actual building'] = function () {
     var joe = new CiJoe(PROJECT_PATH);
     joe.build();
     assert.isTrue(fs.exists(
-            fs.join(PROJECT_PATH, '.git', 'builds', 'current')));
+            fs.join(PROJECT_PATH, '.git', 'builds', 'last')));
 };
 
 if (require.main == module.id) {
