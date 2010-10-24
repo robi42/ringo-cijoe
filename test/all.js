@@ -8,7 +8,7 @@ const SHA = 'a1a1420ad0a42f2a348c',
       USER = 'ringo',
       PROJECT = 'ringojs',
       PROJECT_PATH = require('ringo/engine').getRingoHome().path,
-      DUMP_PATH = module.resolve('cijoe-dump-test.json');
+      DUMP_TEST_PATH = module.resolve('cijoe-dump-test.json');
 
 var build = new Build({
     sha: SHA,
@@ -36,8 +36,8 @@ function doAssert() {
 }
 
 exports.tearDown = function () {
-    if (fs.exists(DUMP_PATH)) {
-        fs.remove(DUMP_PATH);
+    if (fs.exists(DUMP_TEST_PATH)) {
+        fs.remove(DUMP_TEST_PATH);
     }
 };
 
@@ -46,8 +46,8 @@ exports['test `build` and corresponding `commit` objects'] = function () {
 };
 
 exports['test serializing `build/commit` objects'] = function () {
-    build.dump(DUMP_PATH);
-    build = Build.load(DUMP_PATH, PROJECT_PATH);
+    build.dump(DUMP_TEST_PATH);
+    build = Build.load(DUMP_TEST_PATH, PROJECT_PATH);
     commit = build.commit();
     doAssert();
 };
