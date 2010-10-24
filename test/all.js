@@ -60,10 +60,12 @@ exports['test `config` objects'] = function () {
 };
 
 exports['test actual building'] = function () {
-    var joe = new CiJoe(PROJECT_PATH);
+    var joe = new CiJoe(PROJECT_PATH),
+        lastBuildDumpPath = fs.join(PROJECT_PATH, '.git', 'builds', 'last'),
+        lastBuildDumpLoad = JSON.parse(fs.read(lastBuildDumpPath));
     joe.build();
-    assert.isTrue(fs.exists(
-            fs.join(PROJECT_PATH, '.git', 'builds', 'last')));
+    assert.isTrue(fs.exists(lastBuildDumpPath));
+    assert.strictEqual('worked', lastBuildDumpLoad.status);
 };
 
 if (require.main == module.id) {
