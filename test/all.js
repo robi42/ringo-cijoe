@@ -63,7 +63,7 @@ exports['test actual building'] = function () {
     var joe = new CiJoe(PROJECT_PATH),
         lastBuildDumpPath = fs.join(PROJECT_PATH, '.git', 'builds', 'last'),
         lastBuildDumpLoad = JSON.parse(fs.read(lastBuildDumpPath));
-    joe.build();
+    assert.isTrue(joe.build());
     assert.isTrue(fs.exists(lastBuildDumpPath));
     assert.strictEqual('worked', lastBuildDumpLoad.status);
     assert.strictEqual('worked', joe.lastBuild.status);
