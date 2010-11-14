@@ -23,7 +23,7 @@ function main(args) {
     }
 
     system.args = systemArgs;
-    require('ringo/webapp').main(fs.join(module.directory, '..', 'app'));
+    require('ringo/cijoe').initWebapp();
 
     function printHelp() {
         print('Launch CI Joe continuous integration server.');
