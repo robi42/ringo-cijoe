@@ -43,7 +43,7 @@
 
 <% subskin main %>
 <li>
-  <span class="date"><% if joe.currentBuild render current %></span> &raquo;
+  <span class="date"><% if <% joe.currentBuild %> render current %></span> &raquo;
   <% if <% joe.currentBuild.sha %> render building %>
   <% if not <% joe.currentBuild.sha %> render starting %>
 </li>
