@@ -1,0 +1,44 @@
+#!/usr/bin/env ringo
+
+var {Parser} = require('ringo/args');
+var strings = require('ringo/utils/strings'),
+    fs = require('fs');
+
+var systemArgs = [arg for each (arg in system.args)];
+
+function main(args) {
+    var script = args.shift(),
+        parser = new Parser();
+
+    parser.addOption('H', 'host', 'NAME',
+            'The hostname or IP of the host to bind to (default: "0.0.0.0")');
+    parser.addOption('p', 'port', 'PORT',
+            'The port to listen on (default: 8080)');
+    parser.addOption('h', 'help', null, 'Print help message and exit');
+
+    var options = parser.parse(args);
+    if (options.help) {
+        printHelp();
+        return;
+    }
+
+    system.args = systemArgs;
+    require('ringo/webapp').main(fs.join(module.directory, '..', 'app'));
+
+    function printHelp() {
+        print('Launch CiJoe continuous integration server.');
+        print('Usage:');
+        print(strings.format('  {} [path-to-git-repo]', script));
+        print('Options:');
+        print(parser.help());
+    }
+}
+
+if (require.main == module.id) {
+    try {
+        main(system.args);
+    } catch (error) {
+        print(error);
+        print('Use -h or --help to get a list of available options.');
+    }
+}
