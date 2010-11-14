@@ -10,8 +10,8 @@ function main(args) {
     var script = args.shift(),
         parser = new Parser();
 
-    parser.addOption('H', 'host', 'NAME',
-            'The hostname or IP of the host to bind to (default: "0.0.0.0")');
+    parser.addOption('H', 'host', 'ADDRESS',
+            'The name or IP of the host to bind to (default: "0.0.0.0")');
     parser.addOption('p', 'port', 'PORT',
             'The port to listen on (default: 8080)');
     parser.addOption('h', 'help', null, 'Print help message and exit');
