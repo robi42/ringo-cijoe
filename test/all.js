@@ -16,7 +16,7 @@ var build = new Build({
     project: PROJECT,
     projectPath: PROJECT_PATH,
 });
-var commit = build.commit();
+var commit = build.commit;
 
 function doAssert() {
     assert.isNotNull(build);
@@ -28,7 +28,7 @@ function doAssert() {
     assert.matches(commit.author(), /Hannes/);
     assert.matches(commit.message(), /Rhino/);
     assert.matches(commit.committedAt(), /2010/);
-    assert.strictEqual(SHA.substring(0, 7), build.shortSha());
+    assert.strictEqual(SHA.substring(0, 7), build.shortSha);
     assert.isTrue(typeof build.startedAt === 'number');
     assert.isUndefined(build.finishedAt);
     assert.isTrue(build.building());
@@ -48,7 +48,7 @@ exports['test `build` and corresponding `commit` objects'] = function () {
 exports['test serializing `build/commit` objects'] = function () {
     build.dump(DUMP_TEST_PATH);
     build = Build.load(DUMP_TEST_PATH, PROJECT_PATH);
-    commit = build.commit();
+    commit = build.commit;
     doAssert();
 };
 
@@ -60,10 +60,10 @@ exports['test `config` objects'] = function () {
 };
 
 exports['test actual building'] = function () {
-    var joe = new CiJoe(PROJECT_PATH),
-        lastBuildDumpPath = fs.join(PROJECT_PATH, '.git', 'builds', 'last'),
-        lastBuildDumpLoad = JSON.parse(fs.read(lastBuildDumpPath));
+    var joe = new CiJoe(PROJECT_PATH);
     assert.isTrue(joe.build());
+    var lastBuildDumpPath = fs.join(PROJECT_PATH, '.git', 'builds', 'last'),
+        lastBuildDumpLoad = JSON.parse(fs.read(lastBuildDumpPath));
     assert.isTrue(fs.exists(lastBuildDumpPath));
     assert.strictEqual('worked', lastBuildDumpLoad.status);
     assert.strictEqual('worked', joe.lastBuild.status);

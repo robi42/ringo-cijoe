@@ -1,17 +1,79 @@
 <% extends ./base.html %>
 
 <% subskin content %>
-<div id="header"><h1><% title %></h1></div>
-<div id="body">
-<p>You just created a new Ringo application. Here are some possible next steps:</p>
-<ul>
-    <li>Tweak the URL routing or middleware stack in <code>config.js</code>.</li>
-    <li>Edit and add actions in <code>actions.js</code>.</li>
-    <li>Adapt the templates in the <code>skins</code> directory to your liking.</li>
-    <li>Install one of the available <a href="http://ringojs.org/wiki/Packages/">database
-        packages</a> to store application data.</li>
-    <li>Visit our <a href="http://ringojs.org/wiki/Tutorial/">tutorial</a> or
-        <a href="http://ringojs.org/wiki/Documentation/">documentation</a> to learn more about Ringo.</li>
-</ul>
-<p>Thank you for using Ringo!</p>
+<div class="site">
+  <div class="title">
+    <a href="/">CI Joe</a>
+    <span class="extra">because knowing is half the battle</span>
+  </div>
+
+  <div id="home">
+    <h1><a href="<% joe.url %>"><% joe.project %></a></h1>
+    <ul class="posts">
+      <% if <% joe.currentBuild %> render main %>
+      <% if not <% joe.currentBuild %> render form %>
+      <% if <% joe.lastBuild %> render info %>
+    </ul>
+  </div>
+
+  <div class="footer">
+    <div class="contact">
+      <p>
+        <a href="https://github.com/defunkt/cijoe#readme">Documentation</a><br/>
+        <a href="https://github.com/robi42/ringo-cijoe">Source</a><br/>
+        <a href="https://github.com/robi42/ringo-cijoe/issues">Issues</a><br/>
+        <a href="http://twitter.com/robi42">Twitter</a>
+      </p>
+    </div>
+    <div class="contact">
+      <p>
+        Designed by <a href="http://tom.preston-werner.com/">Tom Preston-Werner</a><br/>
+        Influenced by <a href="https://github.com/defunkt/cijoe">CIJoe</a> and <a href="http://integrityapp.com/">Integrity</a><br/>
+        Built with <a href="http://ringojs.org/">RingoJS</a><br/>
+        Keep it simple, Sam.
+      </p>
+    </div>
+    <div class="rss">
+      <a href="https://github.com/robi42/ringo-cijoe">
+        <img src="/octocat.png" alt="Octocat!" />
+      </a>
+    </div>
+  </div>
 </div>
+
+<% subskin main %>
+<li>
+  <span class="date"><% if joe.currentBuild render current %></span> &raquo;
+  <% if <% joe.currentBuild.sha %> render building %>
+  <% if not <% joe.currentBuild.sha %> render starting %>
+</li>
+
+<% subskin form %>
+<li><form method="POST"><input type="submit" value="Build"/></form></li>
+
+<% subskin info %>
+<li>
+  <span class="date"><% joe.lastBuild.finishedAt | dateFormat 'yyyy-MM-dd HH:mm:ss' %></span> &raquo;
+  <% if joe.lastBuild.sha render built %>
+  <span class="<% joe.lastBuild.status %>">(<% joe.lastBuild.status %>)</span>
+  <% if joe.lastBuild.duration render duration %>
+</li>
+<% if joe.lastBuild.failed render failed %>
+
+<% subskin current %>
+<% joe.currentBuild.startedAt %>
+
+<% subskin building %>
+Building <a href="<% joe.currentBuild.lastCommit.url %>"><% joe.currentBuild.shortSha %></a>
+
+<% subskin starting %>
+Build starting...
+
+<% subskin built %>
+Built <a href="<%= joe.lastBuild.commit.url %>"><%= joe.lastBuild.shortSha %></a>
+
+<% subskin duration %>
+in <span class="duration"><%= joe.lastBuild.duration %></span> milliseconds.
+
+<% subskin failed %>
+<li><pre class="terminal"><code><% joe.lastBuild.output %></code></pre></li>

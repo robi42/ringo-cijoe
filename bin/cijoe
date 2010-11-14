@@ -26,7 +26,7 @@ function main(args) {
     require('ringo/webapp').main(fs.join(module.directory, '..', 'app'));
 
     function printHelp() {
-        print('Launch CiJoe continuous integration server.');
+        print('Launch CI Joe continuous integration server.');
         print('Usage:');
         print(strings.format('  {} [path-to-git-repo]', script));
         print('Options:');

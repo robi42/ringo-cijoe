@@ -2,7 +2,8 @@
 // improve performance, but may cause hard to debug cyclic module dependencies
 // in case any app module requires this module.
 exports.urls = [
-    ['/', './actions'],
+    ['/ping', './actions', 'ping'],
+    ['/.*', './actions', 'index']
 ];
 
 // Middleware stack as an array of middleware factories. These will be
