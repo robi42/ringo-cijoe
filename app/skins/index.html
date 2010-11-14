@@ -70,10 +70,10 @@ Building <a href="<% joe.currentBuild.lastCommit.url %>"><% joe.currentBuild.sho
 Build starting...
 
 <% subskin built %>
-Built <a href="<%= joe.lastBuild.commit.url %>"><%= joe.lastBuild.shortSha %></a>
+Built <a href="<%= joe.lastBuild.commit.url %>"><% joe.lastBuild.shortSha %></a>
 
 <% subskin duration %>
-in <span class="duration"><%= joe.lastBuild.duration %></span> milliseconds.
+in <span class="duration"><% joe.lastBuild.duration %></span> milliseconds.
 
 <% subskin failed %>
 <li><pre class="terminal"><code><% joe.lastBuild.output %></code></pre></li>
