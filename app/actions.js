@@ -2,7 +2,7 @@ var {Response} = require('ringo/webapp/response');
 var {CiJoe} = require('ringo/cijoe');
 var arrays = require('ringo/utils/arrays');
 
-var joe = new CiJoe(arrays.peek(system.args));
+var joe = joe || new CiJoe(arrays.peek(system.args));
 
 exports.ping = {
     GET: function (req) {

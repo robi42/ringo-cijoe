@@ -54,11 +54,11 @@
 <% subskin info %>
 <li>
   <span class="date"><% joe.lastBuild.finishedAt | dateFormat 'yyyy-MM-dd HH:mm:ss' %></span> &raquo;
-  <% if joe.lastBuild.sha render built %>
+  <% if <% joe.lastBuild.sha %> render built %>
   <span class="<% joe.lastBuild.status %>">(<% joe.lastBuild.status %>)</span>
-  <% if joe.lastBuild.duration render duration %>
+  <% if <% joe.lastBuild.duration %> render duration %>
 </li>
-<% if joe.lastBuild.failed render failed %>
+<% if <% joe.lastBuild.status %> render output %>
 
 <% subskin current %>
 <% joe.currentBuild.startedAt %>
@@ -75,5 +75,5 @@ Built <a href="<%= joe.lastBuild.commit.url %>"><% joe.lastBuild.shortSha %></a>
 <% subskin duration %>
 in <span class="duration"><% joe.lastBuild.duration %></span> milliseconds.
 
-<% subskin failed %>
+<% subskin output %>
 <li><pre class="terminal"><code><% joe.lastBuild.output %></code></pre></li>
