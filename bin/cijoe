@@ -1,8 +1,7 @@
 #!/usr/bin/env ringo
 
 var {Parser} = require('ringo/args');
-var strings = require('ringo/utils/strings'),
-    fs = require('fs');
+var strings = require('ringo/utils/strings');
 
 var systemArgs = [arg for each (arg in system.args)];
 
