@@ -5,7 +5,8 @@
     "keywords": ["build", "ci", "cijoe"],
     "author": "Robert Thurnher (http://robert42.com/) <r.thurnher@gmail.com>",
     "contributors": [
-        "Andreas Bolka (http://earl.strain.at/)"
+        "Andreas Bolka (http://earl.strain.at/)",
+        "Simon Oberhammer"
     ],
     "main": "./lib/main.js"
 }
