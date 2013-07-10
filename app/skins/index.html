@@ -1,6 +1,6 @@
-<% extends ./base.html %>
+{% extends "base.html" %}
 
-<% subskin content %>
+{% block content %}
 <div class="site">
   <div class="title">
     <a href="/">CI Joe</a>
@@ -8,11 +8,38 @@
   </div>
 
   <div id="home">
-    <h1><a href="<% joe.url %>"><% joe.project %></a></h1>
+    <h1><a href="{{ joe.url }}">{{ joe.project }}</a></h1>
     <ul class="posts">
-      <% if <% joe.currentBuild %> render main %>
-      <% if not <% joe.currentBuild %> render form %>
-      <% if <% joe.lastBuild %> render info %>
+      {% if joe.currentBuild %}
+        <li>
+          <span class="date"> {{ joe.currentBuild.startedAt }} </span> &raquo;
+          {% if joe.currentBuild.sha %}
+            Building <a href="{{ joe.currentBuild.commit.url }}">{{ joe.currentBuild.shortSha }}</a>
+          {% else %}
+            Build starting...
+          {% endif %}
+        </li>
+      {% else %}
+        <li><form method="POST"><input type="submit" value="Build"/></form></li>
+      {% endif %}
+
+      {% if joe.lastBuild %}
+        <li>
+          <!-- missing:  | date:'yyyy-MM-dd HH:mm:ss' -->
+          <span class="date">{{ joe.lastBuild.finishedAt }}</span> &raquo;
+          {% if joe.lastBuild.sha %}
+              Built <a href="{{ joe.lastBuild.commit.url }}">{{ joe.lastBuild.shortSha }}</a>
+          {% endif %}
+          <span class="{{ joe.lastBuild.status }}">({{ joe.lastBuild.status }})</span>
+          {% if joe.lastBuild.duration %}
+            in <span class="duration">{{ joe.lastBuild.duration }}</span> milliseconds.
+          {% endif %}
+        </li>
+        {% if joe.lastBuild.status %}
+          <li><pre class="terminal"><code>{{ joe.lastBuild.output }}</code></pre></li>
+        {% endif %}
+
+      {% endif %}
     </ul>
   </div>
 
@@ -41,39 +68,4 @@
   </div>
 </div>
 
-<% subskin main %>
-<li>
-  <span class="date"><% if <% joe.currentBuild %> render current %></span> &raquo;
-  <% if <% joe.currentBuild.sha %> render building %>
-  <% if not <% joe.currentBuild.sha %> render starting %>
-</li>
-
-<% subskin form %>
-<li><form method="POST"><input type="submit" value="Build"/></form></li>
-
-<% subskin info %>
-<li>
-  <span class="date"><% joe.lastBuild.finishedAt | dateFormat 'yyyy-MM-dd HH:mm:ss' %></span> &raquo;
-  <% if <% joe.lastBuild.sha %> render built %>
-  <span class="<% joe.lastBuild.status %>">(<% joe.lastBuild.status %>)</span>
-  <% if <% joe.lastBuild.duration %> render duration %>
-</li>
-<% if <% joe.lastBuild.status %> render output %>
-
-<% subskin current %>
-<% joe.currentBuild.startedAt %>
-
-<% subskin building %>
-Building <a href="<% joe.currentBuild.commit.url %>"><% joe.currentBuild.shortSha %></a>
-
-<% subskin starting %>
-Build starting...
-
-<% subskin built %>
-Built <a href="<%= joe.lastBuild.commit.url %>"><% joe.lastBuild.shortSha %></a>
-
-<% subskin duration %>
-in <span class="duration"><% joe.lastBuild.duration %></span> milliseconds.
-
-<% subskin output %>
-<li><pre class="terminal"><code><% joe.lastBuild.output %></code></pre></li>
+{% endblock %}

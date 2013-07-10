@@ -2,6 +2,7 @@
 
 var {Parser} = require('ringo/args');
 var strings = require('ringo/utils/strings');
+var system = require('system');
 
 var systemArgs = [arg for each (arg in system.args)];
 
@@ -22,7 +23,7 @@ function main(args) {
     }
 
     system.args = systemArgs;
-    require('ringo/cijoe').initWebapp();
+    require('ringo-cijoe').initWebapp();
 
     function printHelp() {
         print('Launch CI Joe continuous integration server.');
