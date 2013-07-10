@@ -3,13 +3,14 @@
 <head>
   <link href="/stylesheets/screen.css" media="screen" rel="stylesheet" type="text/css" />
   <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-  <title><% joe.project %>: CI Joe</title>
-<% render head %>
+  <title>{{ joe.project }}: CI Joe</title>
+{% block head %}
+
+{% endblock %}
 </head>
 <body>
-<% render content %>
+{% block content %}
+
+{% endblock %}
 </body>
 </html>
-
-<% subskin content %>
-Overwrite this subskin to add content.
