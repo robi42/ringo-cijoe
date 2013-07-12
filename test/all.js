@@ -1,8 +1,9 @@
 var assert = require('assert'),
     fs = require('fs');
-var {Build} = require('ringo/cijoe/build');
-var {Config} = require('ringo/cijoe/config');
-var {CiJoe} = require('ringo/cijoe');
+var {Build} = require('../lib/ringo/cijoe/build');
+var {Config} = require('../lib/ringo/cijoe/config');
+var {CiJoe} = require('../lib/main');
+var system = require('system');
 
 const SHA = 'a1a1420ad0a42f2a348c',
       USER = 'ringo',
